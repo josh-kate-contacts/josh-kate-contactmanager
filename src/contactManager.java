@@ -12,7 +12,6 @@ public class contactManager {
 
     public static void main(String[] args) throws IOException {
 
-
         System.out.println("1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
@@ -20,30 +19,32 @@ public class contactManager {
                 "5. Exit.\n" +
                 "Enter an option (1, 2, 3, 4 or 5):");
 
-
-        switch (scanner.nextLine()) {
-            case "1":
-                view();
-                break;
-            case "2":
-                add();
-                break;
-            case "3":
-                search();
-                break;
-            case "4":
-                delete();
-                break;
-            case "5":
-                exit();
-                break;
-        }
-
+        loop:
+        do {
+            switch (scanner.nextLine()) {
+                case "1":
+                    view();
+                    break;
+                case "2":
+                    add();
+                    break;
+                case "3":
+                    search();
+                    break;
+                case "4":
+                    delete();
+                    break;
+                case "5":
+                    break loop;
+            }
+        } while (true);
     }
 
     public static void view() throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("contacts.txt"));
         String[] bucket;
+        System.out.print("Name | Phone number\n" +
+                "---------------\n");
 
         for (String line : lines) {
             bucket = line.split(" ");
@@ -83,10 +84,4 @@ public class contactManager {
         Files.write(Paths.get("contacts.txt"),
                 lines);
     }
-
-    public static void exit() {
-
-    }
-
-
 }
