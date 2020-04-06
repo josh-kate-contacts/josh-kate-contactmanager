@@ -3,12 +3,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-
-import static java.nio.file.Files.exists;
 
 public class contactManager {
     static Scanner scanner = new Scanner(System.in);
@@ -82,6 +79,9 @@ public class contactManager {
         String bucket = scanner.nextLine().strip();
 
         lines.removeIf(line -> line.contains(bucket));
+
+        Files.write(Paths.get("contacts.txt"),
+                lines);
     }
 
     public static void exit() {
