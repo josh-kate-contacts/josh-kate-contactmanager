@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.nio.file.Files.exists;
+
 public class contactManager {
     static Scanner scanner = new Scanner(System.in);
 
@@ -62,12 +64,24 @@ public class contactManager {
                 StandardOpenOption.APPEND);
     }
 
-    public static void search() {
-
+    public static void search() throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get("contacts.txt"));
+        System.out.println("Search a contact name:");
+        String bucket = scanner.nextLine().strip();
+        for (String line : lines) {
+            if (line.contains(bucket)) {
+                System.out.printf("%s", line);
+            }
+        }
     }
 
-    public static void delete() {
+    public static void delete() throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get("contacts.txt"));
 
+        System.out.println("Enter name of contact to delete: ");
+        String bucket = scanner.nextLine().strip();
+
+        lines.removeIf(line -> line.contains(bucket));
     }
 
     public static void exit() {
